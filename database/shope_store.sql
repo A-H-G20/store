@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 13, 2024 at 05:35 PM
+-- Generation Time: Dec 03, 2024 at 08:17 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -36,15 +36,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
-(4, 3, 6, 5),
-(3, 3, 7, 2);
+(7, 5, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -57,13 +56,23 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
-  `quantity` int NOT NULL DEFAULT '1',
-  `status` enum('pending','processing','shipped','delivered','canceled') DEFAULT 'pending',
-  `order_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `product_id` (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `quantity` int NOT NULL,
+  `status` varchar(50) NOT NULL,
+  `order_date` datetime NOT NULL,
+  `full_name` varchar(255) NOT NULL,
+  `address` text NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `postal_code` varchar(20) NOT NULL,
+  `country` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `product_id`, `quantity`, `status`, `order_date`, `full_name`, `address`, `city`, `postal_code`, `country`) VALUES
+(2, 5, 8, 3, 'delivered', '2024-12-03 08:10:56', 'ali', 'Rua Caio Jos de Miranda 542\r\nAa', 'Bierut', '0000', 'Lebanon');
 
 -- --------------------------------------------------------
 
@@ -81,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `image2` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`product_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `products`
@@ -111,15 +120,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `phone_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `role`, `gender`, `address`, `phone_number`, `password`) VALUES
-(4, 'admin', 'admin187', 'admin@gmail.com', 'admin', 'Male', 'lebanon', '12345679', '$2y$10$KvHVQyiQhpl1CNCZprHbdeK2aGCGruzjLfSln6LFTioMFVgjz7kL2'),
-(3, 'user', 'user993', 'user@gmail.com', 'user', 'Male', 'lebanon', '12345678', '$2y$10$p7w/aS28NcrjgDzvi1StNOg2KXYQn2OnQ310i9uM93yHpPrXMGG.a');
+(6, 'admin', 'admin540', 'admin@gmail.com', 'admin', 'Male', 'lebanon', '03123654', '$2y$10$NYVkwL3u6gKQNac3NS2KLeQQ0y3CXWjd.NOf/PFyy709KGjKDsvYK'),
+(7, '', 'ahmad12', 'admin1@gmail.com', 'admin', NULL, NULL, NULL, '$2y$10$VcRRivzjCsWzPQ0xq.a1cOwlGpG9sGf9hYubirWpzkhbPpv8FAIPW'),
+(5, 'user', 'user537', 'user@gmail.com', 'user', 'Male', 'lebanon', '03147852', '$2y$10$YKFj24W/PLNkZROjmC3eou1NY/QtvQvzAbUxt5dOHUsjtSY1f2zT2');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
